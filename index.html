@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Digital business card for Alex Barry - Embedded Engineer, and founder.">
+    <meta name="author" content="Alex Barry">
+    <title>Alex Barry - Digital Business Card</title>
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%233b82f6'/><text x='50' y='70' font-size='60' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>AjB</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* === RESET & BASE === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: #0a0e27;
+            background-image:
+                radial-gradient(at 20% 30%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
+                radial-gradient(at 80% 70%, rgba(139, 92, 246, 0.15) 0px, transparent 50%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* === CARD CONTAINER === */
+        .card {
+            background: #1a1f3a;
+            border: 1px solid #2d3548;
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 70px rgba(59, 130, 246, 0.3);
+            border-color: #3b82f6;
+        }
+
+        /* === PROFILE SECTION === */
+        .avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            border: 2px solid #2d3548;
+            border-radius: 12px;
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: white;
+            font-weight: 700;
+            box-shadow: 0 8px 16px rgba(59, 130, 246, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #e2e8f0;
+            margin-bottom: 8px;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .pronouns {
+            text-align: center;
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        .bio {
+            text-align: center;
+            color: #94a3b8;
+            line-height: 1.7;
+            margin-bottom: 30px;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        /* === CONTACT SECTION === */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            padding: 14px 18px;
+            background: #0f1729;
+            border: 1px solid #2d3548;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #cbd5e1;
+            font-size: 13px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .contact-item:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: #3b82f6;
+            color: #e2e8f0;
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+        }
+
+        .icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            flex-shrink: 0;
+            color: #3b82f6;
+        }
+
+        .terminal-prompt {
+            color: #22c55e;
+            margin-right: 8px;
+        }
+
+        .label {
+            font-weight: 600;
+            margin-right: 8px;
+            color: #64748b;
+        }
+
+        /* Copy notification */
+        .copy-notification {
+            position: absolute;
+            right: 18px;
+            background: #22c55e;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .copy-notification.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card" role="main">
+        <!-- Profile Section -->
+        <div class="avatar" aria-label="Profile avatar with initials JD">AjB</div>
+        <h1>Alex Barry</h1>
+        <p class="pronouns">(he/him)</p>
+        <p class="bio">Embedded engineer bringing hardware products from prototype to production. Co-founder at Forward Deployed.
+        </p>
+
+        <!-- Contact Section -->
+        <nav class="contact-info" aria-label="Contact information">
+            <a href="mailto:hello@ajbarry.com.au" class="contact-item" id="email-copy"
+                aria-label="Email hello@ajbarry.com.au">
+                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                    </path>
+                </svg>
+                <span class="terminal-prompt">></span>
+                <span class="label">email:</span>
+                <span>hello@ajbarry.com.au</span>
+                <span class="copy-notification" id="copy-notification">Copied!</span>
+            </a>
+
+            <a href="https://linkedin.com/in/alex-j-barry/" target="_blank" rel="noopener noreferrer"
+                class="contact-item" aria-label="LinkedIn profile - opens in new tab">
+                <svg class="icon" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                        d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                </svg>
+                <span class="terminal-prompt">></span>
+                <span class="label">linkedin:</span>
+                <span>linkedin.com/in/alex-j-barry</span>
+            </a>
+
+            <a href="https://forward-deployed.com.au" target="_blank" rel="noopener noreferrer" class="contact-item"
+                aria-label="Forward Deployed website - opens in new tab">
+                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                    </path>
+                </svg>
+                <span class="terminal-prompt">></span>
+                <span class="label">company:</span>
+                <span>forward-deployed.com.au</span>
+            </a>
+        </nav>
+    </div>
+
+    <script>
+        // Copy email to clipboard (progressive enhancement)
+        document.getElementById('email-copy').addEventListener('click', function (e) {
+            const email = 'hello@ajbarry.com.au';
+
+            // Try to copy to clipboard
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                e.preventDefault(); // Only prevent mailto if clipboard is available
+
+                navigator.clipboard.writeText(email).then(function () {
+                    const notification = document.getElementById('copy-notification');
+                    notification.classList.add('show');
+                    setTimeout(function () {
+                        notification.classList.remove('show');
+                    }, 2000);
+                }).catch(function (err) {
+                    console.error('Failed to copy email: ', err);
+                    // If copy fails, let the mailto link work as fallback
+                });
+            }
+            // If clipboard API not available, let the mailto link work naturally
+        });
+    </script>
+</body>
+
+</html>
